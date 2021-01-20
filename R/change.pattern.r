@@ -16,7 +16,8 @@
 #' @seealso \code{\link{change.similar}}
 #'
 #' @examples
-#' genes<-matrix(round(rnorm(n=600, mean=100, sd=10), 0), ncol = 6, dimnames = list(paste0("g", seq(1:100))))
+#' genes<-matrix(round(rnorm(n=600, mean=100, sd=10), 0),
+#' ncol = 6, dimnames = list(paste0("g", seq(1:100))))
 #' treats<-as.factor(c(rep("control",3), rep("treated",3)))
 #' changes<-genelines(genes, treats)
 #' change.pattern(changes, pattern = list(C1_2 = 0.5), tolerance = 0.2)

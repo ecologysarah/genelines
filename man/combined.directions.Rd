@@ -4,7 +4,7 @@
 \alias{combined.directions}
 \title{Direction Changes}
 \usage{
-combined.direction(changes, tolerance, label.plots=NULL)
+combined.directions(changes, tolerance, label.plots=NULL)
 }
 \arguments{
 \item{changes}{A list as returned by \code{\link{genelines}} or \code{\link{genelinesLog2FC}}.}
@@ -23,11 +23,11 @@ Find and plot genes with all possible expression patterns for two comparisons
 The differences between pairs of treatment levels is equivalent to the slope of a line drawn between the treatment means. \code{\link{change.direction}} allows the user to define a single set of relationships between treatments and find which genes follow this pattern. The amount of deviation allowed from the specified pattern is determined by \emph{tolerance}.
 }
 \examples{
-genes<-matrix(round(rnorm(n=900, mean=100, sd=10), 0), ncol = 9, dimnames = list(paste0("g", seq(1:100))))
+genes<-matrix(round(rnorm(n=900, mean=100, sd=10), 0),
+ncol = 9, dimnames = list(paste0("g", seq(1:100))))
 treats<-as.factor(c(rep("control",3), rep("treat1",3), rep("treat2",3)))
 changes<-genelines(genes, treats)
 combined.directions(changes, tolerance = 0.2, label.plots="center")
-
 }
 \seealso{
 \code{\link{genelines}}

@@ -4,7 +4,7 @@
 \alias{genelinesLog2FC}
 \title{Genelines for log2 fold change data}
 \usage{
-genelinesLog2FC(log2fc, condition, sig.level=0.05, FC, degs="inclusive")
+genelinesLog2FC(data, condition, sig.level=0.05, FC, degs="inclusive")
 }
 \arguments{
 \item{data}{A list of DESeq results objects, in the order you wish to make the comparisons.}
@@ -27,7 +27,9 @@ Calculate expression changes between treatments
 Treatment levels are compared in the order supplied by *data*, i.e. treatment 2 - treatment 1, treatment 3 - treatment 2. The 'means' are for compatibility with other *genelines* functions only. All genes are assigned a value of 0 for treatment 1. Genes are only included in the results if they meet the *sig.level* and *FC* criteria.
 }
 \examples{
-genes<-list(deData1=data.frame(log2FoldChange=round(rnorm(n=100, mean=100, sd=10), 0)), deData2=data.frame(log2FoldChange=round(rnorm(n=100, mean=100, sd=10), 0)))
+genes<-list(
+deData1=data.frame(log2FoldChange=round(rnorm(n=100, mean=100, sd=10), 0)),
+deData2=data.frame(log2FoldChange=round(rnorm(n=100, mean=100, sd=10), 0)))
 rownames(genes$deData1)<-paste0("g", seq(1:100))
 rownames(genes$deData2)<-paste0("g", seq(1:100))
 genelinesLog2FC(genes, c("control", "treat1", "treat2"))

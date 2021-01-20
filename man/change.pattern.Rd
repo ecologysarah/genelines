@@ -23,7 +23,8 @@ Find genes with a particular expression pattern
 The differences between pairs of treatment levels is equivalent to the slope of a line drawn between the treatment means. \emph{change.pattern} allows the user to define a set of numerical relationships between treatments and find which genes follow this pattern. The amount of deviation allowed from the specified pattern is determined by \emph{tolerance}.Note that if \emph{changes was produced by  \code{\link{genelinesLog2FC}}}, the slopes correspond to log2 fold changes.
 }
 \examples{
-genes<-matrix(round(rnorm(n=600, mean=100, sd=10), 0), ncol = 6, dimnames = list(paste0("g", seq(1:100))))
+genes<-matrix(round(rnorm(n=600, mean=100, sd=10), 0),
+ncol = 6, dimnames = list(paste0("g", seq(1:100))))
 treats<-as.factor(c(rep("control",3), rep("treated",3)))
 changes<-genelines(genes, treats)
 change.pattern(changes, pattern = list(C1_2 = 0.5), tolerance = 0.2)

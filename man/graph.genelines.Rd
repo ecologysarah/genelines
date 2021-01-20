@@ -18,11 +18,11 @@ A plot showing the change in mean value of each treatment group for the scaled a
 Plotting function for genelines
 }
 \examples{
-genes<-matrix(round(rnorm(n=600, mean=100, sd=10), 0), ncol = 6, dimnames = list(paste0("g", seq(1:100))))
-treats<-as.factor(c(rep("control",2), rep("treated",2)))
+genes<-matrix(round(rnorm(n=600, mean=100, sd=10), 0),
+ncol = 6, dimnames = list(paste0("g", seq(1:100))))
+treats<-as.factor(c(rep("control",3), rep("treated",3)))
 changes<-genelines(genes, treats)
 graph.genelines(changes)
-
 }
 \seealso{
 \code{\link{genelines}}

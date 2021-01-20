@@ -24,7 +24,8 @@ Note that although features are referred to as genes for convenience, this funct
 Treatment levels are compared in sequential pairs, i.e. treatment 2 - treatment 1, treatment 3 - treatment 2, unless otherwise specified by *comparisons*. This is equivalent to the slope of a line drawn between the treatment means.
 }
 \examples{
-genes<-matrix(round(rnorm(n=600, mean=100, sd=10), 0), ncol = 6, dimnames = list(paste0("g", seq(1:100))))
+genes<-matrix(round(rnorm(n=600, mean=100, sd=10), 0),
+ncol = 6, dimnames = list(paste0("g", seq(1:100))))
 treats<-as.factor(c(rep("control",3), rep("treated",3)))
 genelines(genes, treats)
 

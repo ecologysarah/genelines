@@ -2,7 +2,7 @@
 #'
 #' @description Calculate expression changes between treatments
 #'
-#' @usage genelinesLog2FC(log2fc, condition, sig.level=0.05, FC, degs="inclusive")
+#' @usage genelinesLog2FC(data, condition, sig.level=0.05, FC, degs="inclusive")
 #'
 #' @param data A list of DESeq results objects, in the order you wish to make the comparisons.
 #' @param condition A vector of the treatment group levels, in the same order they appear in data. Note that treatment names must NOT contain dashes (-), as this is used to separate treatment pairs.
@@ -17,7 +17,9 @@
 #' @seealso \code{\link{graph.genelines}}
 #'
 #' @examples
-#' genes<-list(deData1=data.frame(log2FoldChange=round(rnorm(n=100, mean=100, sd=10), 0)), deData2=data.frame(log2FoldChange=round(rnorm(n=100, mean=100, sd=10), 0)))
+#' genes<-list(
+#' deData1=data.frame(log2FoldChange=round(rnorm(n=100, mean=100, sd=10), 0)),
+#' deData2=data.frame(log2FoldChange=round(rnorm(n=100, mean=100, sd=10), 0)))
 #' rownames(genes$deData1)<-paste0("g", seq(1:100))
 #' rownames(genes$deData2)<-paste0("g", seq(1:100))
 #' genelinesLog2FC(genes, c("control", "treat1", "treat2"))

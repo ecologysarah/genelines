@@ -23,7 +23,8 @@ Find genes with a given direction of expression change
 The differences between pairs of treatment levels is equivalent to the slope of a line drawn between the treatment means. \emph{change.direction} allows the user to define a set of relationships between treatments and find which genes follow these relationships. The amount of deviation allowed is determined by \emph{tolerance}, i.e. a tolerance of 0.2 means that a slope of > 0.2 will count as "up", a slope of < -0.2 will count as "down", and a slope between -0.2 to 0.2 (inclusive) will count as "flat".
 }
 \examples{
-genes<-matrix(round(rnorm(n=600, mean=100, sd=10), 0), ncol = 6, dimnames = list(paste0("g", seq(1:100))))
+genes<-matrix(round(rnorm(n=600, mean=100, sd=10), 0),
+ncol = 6, dimnames = list(paste0("g", seq(1:100))))
 treats<-as.factor(c(rep("control",3), rep("treated",3)))
 changes<-genelines(genes, treats)
 change.direction(changes, directions = list(C1_2 = "up"), tolerance = 0.2)

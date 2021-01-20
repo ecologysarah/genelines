@@ -5,7 +5,7 @@
 #' @usage change.similar(changes, gene, tolerance)
 #'
 #' @param changes A list as returned by \code{\link{genelines}} or \code{\link{genelinesLog2FC}}.
-#' @param pattern A character vector (in quotes) corresponding to one of the gene names in \emph{rownames(changes$slopes)}.
+#' @param gene A character vector (in quotes) corresponding to one of the gene names in \emph{rownames(changes$slopes)}.
 #' @param tolerance A single number corresponding to how much above/below the value for \emph{gene} another gene may be and still be returned.
 #'
 #' @return A list of two data frames: the first contains the mean value of each treatment group for the scaled and centred counts of each gene, and the second contains the differences between pairs of treatment levels.
@@ -16,7 +16,8 @@
 #' @seealso \code{\link{change.direction}}
 #'
 #' @examples
-#' genes<-matrix(round(rnorm(n=600, mean=100, sd=10), 0), ncol = 6, dimnames = list(paste0("g", seq(1:100))))
+#' genes<-matrix(round(rnorm(n=600, mean=100, sd=10), 0),
+#' ncol = 6, dimnames = list(paste0("g", seq(1:100))))
 #' treats<-as.factor(c(rep("control",3), rep("treated",3)))
 #' changes<-genelines(genes, treats)
 #' change.similar(changes, gene = "g12", tolerance = 0.2)

@@ -2,7 +2,7 @@
 #'
 #' @description Find and plot genes with all possible expression patterns for two comparisons
 #'
-#' @usage combined.direction(changes, tolerance, label.plots=NULL)
+#' @usage combined.directions(changes, tolerance, label.plots=NULL)
 #'
 #' @param changes A list as returned by \code{\link{genelines}} or \code{\link{genelinesLog2FC}}.
 #' @param tolerance A single number corresponding to how much above/below each value in \code{\link{change.direction}} a gene may be and still be returned.
@@ -17,10 +17,12 @@
 #' @seealso \code{\link{change.direction}}
 #'
 #' @examples
-#' genes<-matrix(round(rnorm(n=900, mean=100, sd=10), 0), ncol = 9, dimnames = list(paste0("g", seq(1:100))))
+#' genes<-matrix(round(rnorm(n=900, mean=100, sd=10), 0),
+#' ncol = 9, dimnames = list(paste0("g", seq(1:100))))
 #' treats<-as.factor(c(rep("control",3), rep("treat1",3), rep("treat2",3)))
 #' changes<-genelines(genes, treats)
 #' combined.directions(changes, tolerance = 0.2, label.plots="center")
+#' @import graphics
 #'
 #'@export
 combined.directions<-function(changes, tolerance, label.plots=NULL){

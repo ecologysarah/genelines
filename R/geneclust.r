@@ -15,10 +15,13 @@
 #' @seealso \code{\link{genelinesLog2FC}}
 #'
 #' @examples
-#' genes<-matrix(round(rnorm(n=600, mean=100, sd=10), 0), ncol = 6, dimnames = list(paste0("g", seq(1:100))))
+#' genes<-matrix(round(rnorm(n=600, mean=100, sd=10), 0),
+#'  ncol = 6, dimnames = list(paste0("g", seq(1:100))))
 #' treats<-as.factor(c(rep("control",3), rep("treated",3)))
 #' changes<-genelines(genes, treats)
 #' geneclust(changes, k=3)
+#' @import graphics
+#' @import stats
 #'
 #' @export
 geneclust<-function(changes, k, cor.method = "pearson", clust.method = "complete"){
