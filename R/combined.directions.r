@@ -41,8 +41,12 @@ combined.directions<-function(changes, tolerance, label.plots=NULL){
   )
 
   present<-sapply(genesets, function(x)nrow(x$means)>0)
+
   #plot the genelines for each group with > 0 genes
-  par(mfrow = c(3,ceiling(sum(present)/3)))
+  if(sum(present)<2){par(mfrow = c(1,1))}
+  else if (sum(present)<3){par(mfrow = c(1,2))}
+  else if (sum(present)<5){par(mfrow = c(2,2))}
+  else {par(mfrow = c(3,ceiling(sum(present)/3)))}
   for(i in names(genesets)[present]){
     graph.genelines(genesets[[i]])
     mtext(i, side=3)

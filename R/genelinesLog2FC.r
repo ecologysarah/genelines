@@ -85,5 +85,7 @@ genelinesLog2FC<-function(data, condition, sig.level=0.05, FC=0, degs="inclusive
   colnames(changes$slopes)[i]<-paste0("C", i, "_", i+1)
   i<-i+1
 }
-return(changes)
+  changes$means<-as.data.frame(changes$means)
+  changes$slopes<-as.data.frame(changes$slopes)
+  return(changes)
 }

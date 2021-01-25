@@ -24,6 +24,6 @@ graph.genelines<-function(changes, ...){
   plot(1, type="n", xlab="", ylab="Relative expression", ylim=c(min(changes$means), max(changes$means)), xlim=c(1, ncol(changes$means)), xaxt = "n", xaxs="i", yaxs="i")
   axis(1, at=seq(1,ncol(changes$means),1), labels=names(changes$means))
   for (i in 1:nrow(changes$means)){
-    lines(as.numeric(changes$means[i,]), ...)
+    lines(x=as.factor(names(changes$means)), y=as.numeric(changes$means[i,]), ...)
   }
 }
