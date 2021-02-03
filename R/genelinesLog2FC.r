@@ -50,15 +50,19 @@ genelinesLog2FC<-function(data, condition, sig.level=0.05, FC=0, degs="inclusive
     log2fc[,i]<-data[[i]]$log2FoldChange[match(rownames(log2fc), rownames(data[[i]]))]
     i = i + 1
   }
-  #Remove non-DE genes
-  if(degs=="inclusive"){
+  #Remove non-DE
+  if (length(data)==1){log2fc<-as.data.frame(log2fc[marked==T,], row.names = rownames(log2fc)[marked==T])
+  names(log2fc)<-"V1"}
+  else if(length(data)>1 & degs=="inclusive"){
     log2fc<-log2fc[rowSums(marked)!=0,]
   }
-  else if(degs=="exclusive"){
+  else if(length(data)>1 & degs=="exclusive"){
     log2fc<-log2fc[rowSums(marked)==length(data),]
   }
   else {stop("Error: 'degs' must be either 'exclusive' or 'inclusive'.")}
-  log2fc<-log2fc[!is.na(rowSums(log2fc)),]
+  if (length(data)==1){log2fc<-as.data.frame(log2fc[!is.na(log2fc$V1),], row.names = rownames(log2fc)[marked==T])
+  names(log2fc)<-"V1"}
+  else {log2fc<-log2fc[!is.na(rowSums(log2fc)),]}
   if(nrow(log2fc)==0){
     stop("Error: No genes are differentially expressed. Try changing the filtering criteria.")
   }
