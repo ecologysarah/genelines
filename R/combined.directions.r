@@ -2,11 +2,11 @@
 #'
 #' @description Find and plot genes with all possible expression patterns for two comparisons
 #'
-#' @usage combined.directions(changes, tolerance, label.plots=NULL)
+#' @usage combined.directions(changes, label.plots=NULL, ...)
 #'
 #' @param changes A list as returned by \code{\link{genelines}} or \code{\link{genelinesLog2FC}}.
-#' @param tolerance A single number corresponding to how much above/below each value in \code{\link{change.direction}} a gene may be and still be returned.
 #' @param label.plots A single keyword for position (as supplied to \code{\link[graphics]{legend}}) for labelling the plots with the number of genes in each group. Defaults to NULL.
+#' @param ... Other parameters to be passed to \code{\link{change.direction}}.
 #'
 #' @return A list of eight, containing the genes that follow the patterns flat-up,   flat-down, up-up, up-flat, up-down,  down-up, down-flat, down-down. Within each item are two data frames: the first contains the mean value of each treatment group for each gene, and the second contains the differences between pairs of treatment levels.
 #'
@@ -25,19 +25,19 @@
 #' @import graphics
 #'
 #'@export
-combined.directions<-function(changes, tolerance, label.plots=NULL){
+combined.directions<-function(changes, label.plots=NULL, ...){
   if(ncol(changes$slopes) != 2){
     stop("all.directions is currently implemented for two comparisons only.")
   }
   genesets<-list(
-  FlatUp=change.direction(changes, list(C1_2 = "flat", C2_3 = "up"), tolerance),
-  FlatDown=change.direction(changes, list(C1_2 = "flat", C2_3 = "down"), tolerance),
-  UpUp=change.direction(changes, list(C1_2 = "up", C2_3 = "up"), tolerance),
-  UpFlat=change.direction(changes, list(C1_2 = "up", C2_3 = "flat"), tolerance),
-  UpDown=change.direction(changes, list(C1_2 = "up", C2_3 = "down"), tolerance),
-  DownUp=change.direction(changes, list(C1_2 = "down", C2_3 = "up"), tolerance),
-  DownFlat=change.direction(changes, list(C1_2 = "down", C2_3 = "flat"), tolerance),
-  DownDown=change.direction(changes, list(C1_2 = "down", C2_3 = "down"), tolerance)
+  FlatUp=change.direction(changes, list(C1_2 = "flat", C2_3 = "up"), ...),
+  FlatDown=change.direction(changes, list(C1_2 = "flat", C2_3 = "down"), ...),
+  UpUp=change.direction(changes, list(C1_2 = "up", C2_3 = "up"), ...),
+  UpFlat=change.direction(changes, list(C1_2 = "up", C2_3 = "flat"), ...),
+  UpDown=change.direction(changes, list(C1_2 = "up", C2_3 = "down"), ...),
+  DownUp=change.direction(changes, list(C1_2 = "down", C2_3 = "up"), ...),
+  DownFlat=change.direction(changes, list(C1_2 = "down", C2_3 = "flat"), ...),
+  DownDown=change.direction(changes, list(C1_2 = "down", C2_3 = "down"), ...)
   )
 
   present<-sapply(genesets, function(x)nrow(x$means)>0)
