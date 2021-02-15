@@ -4,14 +4,14 @@
 \alias{combined.directions}
 \title{Direction Changes}
 \usage{
-combined.directions(changes, tolerance, label.plots=NULL)
+combined.directions(changes, label.plots=NULL, ...)
 }
 \arguments{
 \item{changes}{A list as returned by \code{\link{genelines}} or \code{\link{genelinesLog2FC}}.}
 
-\item{tolerance}{A single number corresponding to how much above/below each value in \code{\link{change.direction}} a gene may be and still be returned.}
-
 \item{label.plots}{A single keyword for position (as supplied to \code{\link[graphics]{legend}}) for labelling the plots with the number of genes in each group. Defaults to NULL.}
+
+\item{...}{Other parameters to be passed to \code{\link{change.direction}}.}
 }
 \value{
 A list of eight, containing the genes that follow the patterns flat-up,   flat-down, up-up, up-flat, up-down,  down-up, down-flat, down-down. Within each item are two data frames: the first contains the mean value of each treatment group for each gene, and the second contains the differences between pairs of treatment levels.

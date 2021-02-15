@@ -4,14 +4,16 @@
 \alias{change.direction}
 \title{Direction Changes}
 \usage{
-change.direction(changes, directions, tolerance)
+change.direction(changes, directions, mode="tol", tolerance=0.1)
 }
 \arguments{
 \item{changes}{A list as returned by \code{\link{genelines}} or \code{\link{genelinesLog2FC}}.}
 
 \item{directions}{A named list of the desired directions for each comparison. Names should correspond to the column names in \emph{changes$slopes}. Can contain the values "up", "down" and "flat".}
 
-\item{tolerance}{A single number corresponding to how much above/below each value in \emph{directions} a gene may be and still be returned.}
+\item{mode}{How to decide whether a gene should be assigned to a particular direction. Defaults to "tol", whereby the parameter \emph{tolerance} is used to classify directions. Alternatively, "DE" counts a gene as "flat" only if it was not differentially expressed. Option "DE" will only work if \emph{changes} was produced by \code{\link{genelinesLOG2FC}} with \emph{indicate.DE=TRUE}.}
+
+\item{tolerance}{A single number corresponding to how much above/below each value in \emph{directions} a gene may be and still be returned: e.g. a tolerance of 0.1 means that genes with slopes -0.1-0.1 are regarded as "flat", > 0.1 as "up" and < -0.1 as "down". Only used if \emph{mode = "tol"}. Defaults to 0.1.}
 }
 \value{
 A list of two data frames: the first contains the mean value of each treatment group for the scaled and centred counts of each gene, and the second contains the differences between pairs of treatment levels.
