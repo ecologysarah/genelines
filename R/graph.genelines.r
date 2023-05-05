@@ -26,4 +26,6 @@ graph.genelines<-function(changes, ...){
   for (i in 1:nrow(changes$means)){
     lines(x=seq(1,ncol(changes$means),1), y=as.numeric(changes$means[i,]), ...)
   }
+  #Add line showing the mean
+  lines(x=seq(1,ncol(changes$means),1), y=apply(changes$means, 2, mean), col="red", lwd=2, ...)
 }
