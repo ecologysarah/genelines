@@ -2,9 +2,10 @@
 #'
 #' @description Plotting function for genelines
 #'
-#' @usage graph.genelines(changes, ...)
+#' @usage graph.genelines(changes, meanline = TRUE, ...)
 #'
 #' @param changes A list as returned by \code{\link{genelines}} or \code{\link{genelinesLog2FC}}.
+#' @param meanline Should the mean be shown as a red line? Defaults to TRUE.
 #' @param ... Additional parameters to be passed on to \code{\link{lines}}
 #' @return A plot showing the change in mean value of each treatment group for the scaled and centred counts of each gene.
 #'
@@ -20,12 +21,14 @@
 #' @import graphics
 #'
 #'@export
-graph.genelines<-function(changes, ...){
+graph.genelines<-function(changes, meanline = TRUE, ...){
   plot(1, type="n", xlab="", ylab="Relative expression", ylim=c(min(changes$means), max(changes$means)), xlim=c(1, ncol(changes$means)), xaxt = "n", xaxs="i", yaxs="i")
   axis(1, at=seq(1,ncol(changes$means),1), labels=names(changes$means))
   for (i in 1:nrow(changes$means)){
-    lines(x=seq(1,ncol(changes$means),1), y=as.numeric(changes$means[i,]), ...)
+    lines(x=seq(1,ncol(changes$means),1), y=as.numeric(changes$means[i,]), col="grey", ...)
   }
-  #Add line showing the mean
-  lines(x=seq(1,ncol(changes$means),1), y=apply(changes$means, 2, mean), col="red", lwd=2, ...)
+  if (meanline==TRUE) {
+    #Add line showing the mean
+    lines(x=seq(1,ncol(changes$means),1), y=apply(changes$means, 2, mean), col="red", lwd=2, ...)
+  }
 }
