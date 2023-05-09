@@ -4,10 +4,12 @@
 \alias{graph.genelines}
 \title{graph.genelines}
 \usage{
-graph.genelines(changes, ...)
+graph.genelines(changes, meanline = TRUE, ...)
 }
 \arguments{
 \item{changes}{A list as returned by \code{\link{genelines}} or \code{\link{genelinesLog2FC}}.}
+
+\item{meanline}{Should the mean be shown as a red line? Defaults to TRUE.}
 
 \item{...}{Additional parameters to be passed on to \code{\link{lines}}}
 }

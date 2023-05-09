@@ -2,12 +2,13 @@
 #'
 #' @description Calculate expression changes between treatments
 #'
-#' @usage genelinesLog2FC(data, condition, sig.level=0.05, FC, degs="inclusive", indicate.DE=FALSE)
+#' @usage genelinesLog2FC(data, condition, sig.level=0.05, FC, custom.DEGs = NULL, degs="inclusive", indicate.DE=FALSE)
 #'
 #' @param data A list of DESeq results objects, in the order you wish to make the comparisons.
 #' @param condition A vector of the treatment group levels, in the same order they appear in data. Note that treatment names must NOT contain dashes (-), as this is used to separate treatment pairs.
-#' @param sig.level The significance cutoff used to decide a differentially expressed gene. Defaults to 0.05; can be removed by setting to NULL.
-#' @param FC The fold change cutoff used to decide a differentially expressed gene. Defaults to 0 (no cutoff).
+#' @param sig.level The significance cutoff used to decide a differentially expressed gene. Defaults to 0.05; can be removed by setting to NULL. Overriden when *custom.DEGs* is set.
+#' @param FC The fold change cutoff used to decide a differentially expressed gene. Defaults to 0 (no cutoff). Overriden when *custom.DEGs* is set.
+#' @param custom.DEGs If desired, supply a data frame indicating whether each gene is DE for each comparison (T/F); there must be one column for each comparison and one row for each gene (in the same order as they appear in *data*). Defaults to NULL.
 #' @param degs Whether to return genes differentially expressed in ANY comparison ("inclusive") or ALL comparisons ("exclusive"). Defaults to inclusive.
 #' @param indicate.DE Logical: whether to include in the output data frame indicating which genes are DE in each comparison. Only really useful if *degs = "inclusive"*. Defaults to FALSE.
 #'
@@ -26,24 +27,31 @@
 #' genelinesLog2FC(genes, c("control", "treat1", "treat2"))
 #'
 #' @export
-genelinesLog2FC<-function(data, condition, sig.level=0.05, FC=0, degs="inclusive", indicate.DE=FALSE){
-  #Create function to identify DE genes
-  indicateDEGS<-function(deData){
-    DE<-!(deData$log2FoldChange < FC & deData$log2FoldChange > -FC)
-    if(!is.null(sig.level)){
-      DE[deData$padj > sig.level]<-FALSE
+genelinesLog2FC<-function(data, condition, sig.level=0.05, FC=0, custom.DEGs=NULL, degs="inclusive", indicate.DE=FALSE){
+if (!is.null(custom.DEGs)){
+  if (ncol(custom.DEGs) != length(data) | nrow(custom.DEGs) != nrow(data[[1]])) {
+    stop("Error: custom.DEGs must have one column for each comparison and one row for each gene.")
+  }
+  marked<-custom.DEGs
+}
+  else {  #Create function to identify DE genes
+    indicateDEGS<-function(deData){
+      DE<-!(deData$log2FoldChange < FC & deData$log2FoldChange > -FC)
+      if(!is.null(sig.level)){
+        DE[deData$padj > sig.level]<-FALSE
+      }
+      DE[is.na(DE)]<-FALSE
+      return(DE)
     }
-    DE[is.na(DE)]<-FALSE
-    return(DE)
-  }
-  #Mark DE genes in each dataset
-  i<-1
-  while (i <= length(data)) {
-    data[[i]]$DE<-indicateDEGS(data[[i]])
-    #data[[i]]<-data[[i]][data[[i]]$DE==TRUE,]
-    i<-i+1
-  }
-  marked<-cbind(sapply(data, function(x)x$DE))
+    #Mark DE genes in each dataset
+    i<-1
+    while (i <= length(data)) {
+      data[[i]]$DE<-indicateDEGS(data[[i]])
+      #data[[i]]<-data[[i]][data[[i]]$DE==TRUE,]
+      i<-i+1
+    }
+    marked<-cbind(sapply(data, function(x)x$DE))
+}
   rownames(marked)<-rownames(data[[1]])
   #Combine datasets
   log2fc<-data.frame(V1=data[[1]]$log2FoldChange, row.names = rownames(data[[1]]))

@@ -4,16 +4,18 @@
 \alias{genelinesLog2FC}
 \title{Genelines for log2 fold change data}
 \usage{
-genelinesLog2FC(data, condition, sig.level=0.05, FC, degs="inclusive", indicate.DE=FALSE)
+genelinesLog2FC(data, condition, sig.level=0.05, FC, custom.DEGs = NULL, degs="inclusive", indicate.DE=FALSE)
 }
 \arguments{
 \item{data}{A list of DESeq results objects, in the order you wish to make the comparisons.}
 
 \item{condition}{A vector of the treatment group levels, in the same order they appear in data. Note that treatment names must NOT contain dashes (-), as this is used to separate treatment pairs.}
 
-\item{sig.level}{The significance cutoff used to decide a differentially expressed gene. Defaults to 0.05; can be removed by setting to NULL.}
+\item{sig.level}{The significance cutoff used to decide a differentially expressed gene. Defaults to 0.05; can be removed by setting to NULL. Overriden when *custom.DEGs* is set.}
 
-\item{FC}{The fold change cutoff used to decide a differentially expressed gene. Defaults to 0 (no cutoff).}
+\item{FC}{The fold change cutoff used to decide a differentially expressed gene. Defaults to 0 (no cutoff). Overriden when *custom.DEGs* is set.}
+
+\item{custom.DEGs}{If desired, supply a data frame indicating whether each gene is DE for each comparison; there must be one column for each comparison and one row for each gene (in the same order as they appear in *data*). Defaults to NULL.}
 
 \item{degs}{Whether to return genes differentially expressed in ANY comparison ("inclusive") or ALL comparisons ("exclusive"). Defaults to inclusive.}
 
